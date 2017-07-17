@@ -2,6 +2,53 @@
 
     var PaginatedList = {};
 
+    PaginatedList.attachActions = function(store, htmlNodes, updateResults) {
+        
+            function pageButtons(event) {
+                store.dispatch(function(dispatch) {
+                    dispatch({
+                        event: event,
+                        type: 'pageButtons'
+                    });
+                    updateResults(store.getState(), dispatch);
+                });
+            }
+
+            function pageSizeList(event) {
+                store.dispatch(function(dispatch) {
+                    dispatch({
+                        event: event,
+                        type: 'pageSizeList'
+                    });
+                    updateResults(store.getState(), dispatch);
+                });
+            }
+
+            function searcher(event) {
+                store.dispatch(function(dispatch) {
+                    dispatch({
+                        event: event,
+                        type: 'searcher'
+                    });
+                    updateResults(store.getState(), dispatch);
+                });
+            }
+
+            function initialize(event) {
+                store.dispatch(function(dispatch) {
+                    dispatch({
+                        type: 'initialize'
+                    });
+                    updateResults(store.getState(), dispatch);
+                });
+            }
+
+        htmlNodes.keywords.on('keyup', js.eventDelayer(searcher));
+        htmlNodes.pageSizeList.on('click', '.dropdown-option', pageSizeList);
+        htmlNodes.pages.on('click', '.enabled > .page-button', pageButtons);
+        htmlNodes.clearKeywords.on('click', initialize);
+    };
+
     PaginatedList.attachEvents = function(htmlNodes, state, render, resultsUpdater) {
 
         resultsUpdater = resultsUpdater || function(state) {
@@ -9,51 +56,25 @@
         };
 
         function initialize(event) {
-            state.loadPhase = 'loading';
-            state.keywords = '';
-            state.page = 0;
-            state.pageOffset = 0;
+            PaginatedList.stateHandlers.initialize(state, event);
             render();
             resultsUpdater(state);
         }
 
         function pageButtons(event) {
-            state.loadPhase = 'loading';
-            var action = $(event.target).data('page-action');
-            if (!isNaN(action)) {
-                state.page = parseInt(action);
-            }
-            else if (action === 'previous') {
-                if ((state.pageOffset - state.pagesNumber) >= 0) {
-                    state.pageOffset -= state.pagesNumber;                    
-                }
-                state.page = 0;
-            }
-            else if (action === 'following') {
-                if ((state.pageOffset + state.pagesNumber) < state.totalPages) {
-                    state.pageOffset += state.pagesNumber;
-                }
-                state.page = 0;
-            }
+            PaginatedList.stateHandlers.pageButtons(state, event);
             render();
             resultsUpdater(state);
         }
 
         function pageSizeList(event) {
-            state.loadPhase = 'loading';            
-            var element = $(event.target);
-            state.pageSize = element.data('size');
-            state.page = 0;
-            state.pageOffset = 0;
+            PaginatedList.stateHandlers.pageSizeList(state, event);
             render();
             resultsUpdater(state);
         }
 
         function searcher(event) {
-            state.loadPhase = 'loading';
-            state.keywords = event.target.value;
-            state.page = 0;
-            state.pageOffset = 0;
+            PaginatedList.stateHandlers.searcher(state, event);
             render();
             resultsUpdater(state);
         }
@@ -101,6 +122,38 @@
             totalPages: 0
         };
         return state;
+    };
+
+    PaginatedList.reducer = function (state, action) {
+        if (typeof state === 'undefined') {
+            state = PaginatedList.getState();
+        }
+
+        switch (action.type) {
+            case 'pageButtons':
+                PaginatedList.stateHandlers.pageButtons(state, action.event);
+                return state;
+            case 'pageSizeList':
+                PaginatedList.stateHandlers.pageSizeList(state, action.event);
+                return state;
+            case 'searcher':
+                PaginatedList.stateHandlers.searcher(state, action.event);
+                return state;
+            case 'initialize':
+                PaginatedList.stateHandlers.initialize(state, action.event);
+                if (action.config) {
+                    state.hasSearcher = typeof action.config.hasSearcher === "undefined" ? state.hasSearcher : action.config.hasSearcher;
+                    state.hasPagination = typeof action.config.hasPagination === "undefined" ? state.hasPagination : action.config.hasPagination;
+                }
+                return state;
+            case 'updateResults':
+                state.results = action.paginatedList.Items;
+                state.totalPages = action.paginatedList.TotalPages;
+                state.loadPhase = 'loaded';
+                return state;
+            default:
+                return state;
+        }
     };
 
     PaginatedList.render = function(htmlNodes, state, options) {
@@ -179,6 +232,47 @@
         else {
             htmlNodes.searcher.hide();
         }
+    };
+
+        PaginatedList.stateHandlers = {};
+
+    PaginatedList.stateHandlers.initialize = function(state, event)  {
+        state.loadPhase = 'loading';
+        state.keywords = '';
+        state.page = 0;
+        state.pageOffset = 0;
+    };
+    PaginatedList.stateHandlers.pageButtons = function(state, event)  {
+        state.loadPhase = 'loading';
+        var action = $(event.target).data('page-action');
+        if (!isNaN(action)) {
+            state.page = parseInt(action);
+        }
+        else if (action === 'previous') {
+            if ((state.pageOffset - state.pagesNumber) >= 0) {
+                state.pageOffset -= state.pagesNumber;                    
+            }
+            state.page = 0;
+        }
+        else if (action === 'following') {
+            if ((state.pageOffset + state.pagesNumber) < state.totalPages) {
+                state.pageOffset += state.pagesNumber;
+            }
+            state.page = 0;
+        }
+    };
+    PaginatedList.stateHandlers.pageSizeList = function(state, event)  {
+        state.loadPhase = 'loading';            
+        var element = $(event.target);
+        state.pageSize = element.data('size');
+        state.page = 0;
+        state.pageOffset = 0;
+    };
+    PaginatedList.stateHandlers.searcher = function(state, event)  {
+        state.loadPhase = 'loading';
+        state.keywords = event.target.value;
+        state.page = 0;
+        state.pageOffset = 0;
     };
 
     window.PaginatedList = PaginatedList;
