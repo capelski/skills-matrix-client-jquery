@@ -1,4 +1,4 @@
-(function(js) {
+(function(js, loader) {
 
     var PaginatedList = {};
 
@@ -100,7 +100,7 @@
             '    </div>' +
             '    <div class="dynamic-content">' +
             '        <ul id="' + listId + '-list" class="list-group clickable"></ul>' +
-            '        @Html.Partial("_Loader", Model + "-loader")' +
+            '        <div id="' + listId + '-loader" class="loader"></div>' +
             '        <div id="' + listId + '-pagination" class="pagination-bar" style="display: none;">' +
             '            <ul id="' + listId + '-pages" class="pagination clickable">' +
             '            </ul>' +
@@ -117,6 +117,7 @@
             '    </div>' +
             '</div>'
         );
+        loader.create();
         return {
             clearKeywords: $('#'+ listId + '-clear-keywords'),
             keywords: $('#'+ listId + '-keywords'),
@@ -303,4 +304,4 @@
 
     window.PaginatedList = PaginatedList;
 
-})(window.JsCommons);
+})(window.JsCommons, window.Loader);

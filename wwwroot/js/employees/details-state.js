@@ -2,17 +2,17 @@
 
     var htmlNodes = {
         addSkillsList: paginatedList.getHtmlNodes('add-skills'),
-        loader : $('#loader'),
-        elementId : $('#model-id'),
-        readOnly : $('#read-only'),
-        pageTitle : $('#page-title'),
-        elementName : $('#model-name'),
+        loader : $('#employee-loader'),
+        elementId : $('#employee-model-id'),
+        readOnly : $('#employee-read-only'),
+        pageTitle : $('#employee-page-title'),
+        elementName : $('#employee-model-name'),
         skillsList : paginatedList.getHtmlNodes('skills'),
-        editButton : $('#edit-button'),
-        deleteButton : $('#delete-button'),
-        saveButton : $('#save-button'),
-        cancelButton : $('#cancel-button'),
-        viewWrapper : $('#view-wrapper')
+        editButton : $('#employee-edit-button'),
+        deleteButton : $('#employee-delete-button'),
+        saveButton : $('#employee-save-button'),
+        cancelButton : $('#employee-cancel-button'),
+        viewWrapper : $('#employee-view-wrapper')
     };
 
     var state = {

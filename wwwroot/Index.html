@@ -38,7 +38,7 @@
         
         <!-- SECTIONS -->
 
-        <div id="home">
+        <div id="home-section">
             <div class="row">
                 <div class="col-xs-12">
                     <div class="page-header">
@@ -102,10 +102,52 @@
                 </div>
             </div>
 
-            TODO Employees paginated list            
+            <div id="employees-list-wrapper"></div>
         </div>
 
-        <div id="skills-list-wrapper">
+        <div id="employee-details-section">
+            <div class="dynamic-content">
+
+                <div id="employee-loader" class="loader"></div>
+
+                <div id="employee-view-wrapper" style="visibility: hidden;">
+
+                    <div class="page-header">
+                        <h2 id="employee-page-title"></h2>
+                    </div>
+
+                    <form class="form-horizontal">
+                        <input id="employee-model-id" type="hidden" value="@Model" />
+                        <input id="employee-read-only" type="hidden" value="@readOnly" />
+
+                        <div class="form-group no-margin">
+                            <label for="Name">Name</label>
+                            <input id="employee-model-name" value="" class="form-control"/>
+                        </div>
+
+                        <h3>Skills</h3>
+                        @Html.Partial("_PaginatedList", "skills")
+
+                        @Html.Partial("_PaginatedList", "add-skills")
+
+                        <!-- Read actions -->
+                        <a id="employee-edit-button" class="btn btn-primary" href="#">Edit</a>
+                        <button id="employee-delete-button" type="button" class="btn btn-danger" >Delete</button>
+
+                        <!-- Edit actions -->
+                        <button id="employee-save-button" type="button" class="btn btn-primary">Save</button>
+                        <a id="employee-cancel-button" class="btn btn-default" href="#">Cancel</a>
+                    </form>
+                    
+                    <hr />
+                    @Html.ActionLink("Employees list", "index", "employees", null, new { @class = "btn btn-default" })
+
+                </div>
+
+            </div>
+        </div>
+
+        <div id="skills-list-section">
             <div class="page-header">
                 <div class="row align-bottom">
                     <div class="col-xs-6">
@@ -125,7 +167,49 @@
                 </div>
             </div>
 
-            TODO Skills paginated list            
+            <div id="skills-list-wrapper"></div>
+        </div>
+
+        <div id="skill-details-section">
+            <div class="dynamic-content">
+
+                <div id="skill-loader" class="loader"></div>
+
+                <div id="skill-view-wrapper" style="visibility: hidden;">
+
+                    <div class="page-header">
+                        <h2 id="skill-page-title"></h2>
+                    </div>
+
+                    <form class="form-horizontal">
+                        <input id="skill-model-id" type="hidden" value="@Model" />
+                        <input id="skill-read-only" type="hidden" value="@readOnly" />
+
+                        <div class="form-group no-margin">
+                            <label for="Name">Name</label>
+                            <input id="skill-model-name" value="" class="form-control"/>
+                        </div>
+
+                        <h3>Employees</h3>
+                        @Html.Partial("_PaginatedList", "employees")
+
+                        @Html.Partial("_PaginatedList", "add-employees")
+
+                        <!-- Read actions -->
+                        <a id="skill-edit-button" class="btn btn-primary" href="#">Edit</a>
+                        <button id="skill-delete-button" type="button" class="btn btn-danger" >Delete</button>
+
+                        <!-- Edit actions -->
+                        <button id="skill-save-button" type="button" class="btn btn-primary">Save</button>
+                        <a id="skill-cancel-button" class="btn btn-default" href="#">Cancel</a>
+                    </form>
+                    
+                    <hr />
+                    @Html.ActionLink("Skills list", "index", "skills", null, new { @class = "btn btn-default" })
+
+                </div>
+
+            </div>
         </div>
 
         <!-- /SECTIONS -->
@@ -140,6 +224,7 @@
     <script type="text/javascript" src="/plugins/bootstrap-3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/plugins/basic-modal-3.3.8/basic-modal.min.js"></script>
     <script type="text/javascript" src="/plugins/toastr-2.1.3/toastr.min.js"></script>
+    <script type="text/javascript" src="/js/utils/loader.js"></script>
     <script type="text/javascript" src="/js/utils/js-commons.js"></script>
     <script type="text/javascript" src="/js/utils/ajax.js"></script>
     <script type="text/javascript" src="/js/utils/paginated-list.js"></script>
@@ -149,8 +234,12 @@
 
     <!-- Employees -->
     <script src="/js/employees/list.js"></script>
+    <script src="/js/employees/details-state.js"></script>
+    <script src="/js/employees/details-actions.js"></script>
 
     <!-- Skills -->
     <script src="/js/skills/list.js"></script>
+    <script src="/js/skills/details-state.js"></script>
+    <script src="/js/skills/details-actions.js"></script>
 </body>
 </html>

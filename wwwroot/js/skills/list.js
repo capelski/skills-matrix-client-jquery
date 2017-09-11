@@ -1,6 +1,6 @@
 (function(js, ajax, paginatedList) {
 
-    var htmlNodes = paginatedList.getHtmlNodes('skills');
+    var htmlNodes = paginatedList.getHtmlNodes('skills-list-wrapper');
 
     var state = paginatedList.getState();
     state.hasSearcher = true;
