@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Skills Matrix</title>
+
+    <link rel="stylesheet" href="/plugins/basic-modal-3.3.8/basic-modal.min.css" />
+    <link rel="stylesheet" href="/plugins/bootstrap-3.3.7/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/plugins/font-awesome-4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="/plugins/spin-kit-1.2.5/spinkit.css" />
+    <link rel="stylesheet" href="/plugins/toastr-2.1.3/toastr.min.css" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/dynamic-content.css" />
+
+</head>
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a asp-area="" asp-controller="home" asp-action="index" class="navbar-brand">Skills Matrix</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a asp-area="" asp-controller="employees" asp-action="index">Employees</a></li>
+                    <li><a asp-area="" asp-controller="skills" asp-action="index">Skills</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container body-content">
+        
+        <!-- SECTIONS -->
+
+        <div id="home">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="page-header">
+                        <h2>Skills matrix</h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <p>
+                        Suspendisse et metus ligula. Nulla laoreet imperdiet magna, quis egestas sem rhoncus vitae. In non maximus sem, eget accumsan risus. Nam porttitor lorem at purus mollis dictum. Vestibulum eleifend lorem non est consectetur, vel dignissim eros cursus. Aenean magna tortor, fringilla vitae vulputate sit amet, ornare et eros. Vestibulum eget suscipit elit
+                    </p>
+                    <img src="/images/skills.png" class="responsive-img" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="row align-bottom">
+                        <div class="col-xs-9">
+                            <h2>Most skilled employees</h2>  
+                        </div>
+                        <div class="col-xs-3 m-bottom-10 text-right">
+                            <a href="/employees">View all</a>  
+                        </div>
+                    </div>
+                    <div id="home-employees-list"></div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="row align-bottom">
+                        <div class="col-xs-9">
+                            <h2>Rearest skills</h2>
+                        </div>
+                        <div class="col-xs-3 m-bottom-10 text-right">
+                            <a href="/skills">View all</a>  
+                        </div>
+                    </div>
+                    <div id="home-skills-list"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="employees-list-section">
+            <div class="page-header">
+                <div class="row align-bottom">
+                    <div class="col-xs-6">
+                        <h2>Employees</h2>
+                    </div>
+                    <div class="col-xs-6 text-right m-bottom-10">
+                        TODO Link to create an employee (e.g. /employees/edit/)
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <p>
+                        Suspendisse et metus ligula. Nulla laoreet imperdiet magna, quis egestas sem rhoncus vitae. In non maximus sem, eget accumsan risus. Nam porttitor lorem at purus mollis dictum. Vestibulum eleifend lorem non est consectetur, vel dignissim eros cursus. Aenean magna tortor, fringilla vitae vulputate sit amet, ornare et eros. Vestibulum eget suscipit elit
+                    </p>
+                </div>
+            </div>
+
+            TODO Employees paginated list            
+        </div>
+
+        <div id="skills-list-wrapper">
+            <div class="page-header">
+                <div class="row align-bottom">
+                    <div class="col-xs-6">
+                        <h2>Skills</h2>
+                    </div>
+                    <div class="col-xs-6 text-right m-bottom-10">
+                        TODO Link to create an employee (e.g. /skills/edit/)
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <p>
+                        Suspendisse et metus ligula. Nulla laoreet imperdiet magna, quis egestas sem rhoncus vitae. In non maximus sem, eget accumsan risus. Nam porttitor lorem at purus mollis dictum. Vestibulum eleifend lorem non est consectetur, vel dignissim eros cursus. Aenean magna tortor, fringilla vitae vulputate sit amet, ornare et eros. Vestibulum eget suscipit elit
+                    </p>
+                </div>
+            </div>
+
+            TODO Skills paginated list            
+        </div>
+
+        <!-- /SECTIONS -->
+
+        <hr />
+        <footer>
+            <p>&#169; 2017 - Skills Matrix</p>
+        </footer>
+    </div>
+
+    <script type="text/javascript" src="/plugins/jquery-2.2.0/jquery.min.js"></script>
+    <script type="text/javascript" src="/plugins/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/plugins/basic-modal-3.3.8/basic-modal.min.js"></script>
+    <script type="text/javascript" src="/plugins/toastr-2.1.3/toastr.min.js"></script>
+    <script type="text/javascript" src="/js/utils/js-commons.js"></script>
+    <script type="text/javascript" src="/js/utils/ajax.js"></script>
+    <script type="text/javascript" src="/js/utils/paginated-list.js"></script>
+
+    <!-- Home -->
+    <script src="/js/home/home.js"></script>
+
+    <!-- Employees -->
+    <script src="/js/employees/list.js"></script>
+
+    <!-- Skills -->
+    <script src="/js/skills/list.js"></script>
+</body>
+</html>

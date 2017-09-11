@@ -10,7 +10,7 @@ namespace SkillsMatrix.Controllers
     {
         public IActionResult Index()
         {
-            return View("Home");
+            return Content(System.IO.File.ReadAllText("wwwroot/Index.html"), "text/html");
         }
 
         public IActionResult Error()

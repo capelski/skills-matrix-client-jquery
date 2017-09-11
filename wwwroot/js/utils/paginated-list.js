@@ -91,6 +91,32 @@
     };
 
     PaginatedList.getHtmlNodes = function(listId) {
+        $('#' + listId).html(
+            '<div id="' + listId + '-wrapper" class="paginated-list">' +
+            '    <div id="' + listId + '-searcher" class="input-group" style="display: none;">' +
+            '        <span class="input-group-addon"><i class="fa fa-search"></i></span>' +
+            '        <input id="' + listId + '-keywords" class="form-control" />' +
+            '        <span id="' + listId + '-clear-keywords" class="fa fa-times clear-icon"></span>' +
+            '    </div>' +
+            '    <div class="dynamic-content">' +
+            '        <ul id="' + listId + '-list" class="list-group clickable"></ul>' +
+            '        @Html.Partial("_Loader", Model + "-loader")' +
+            '        <div id="' + listId + '-pagination" class="pagination-bar" style="display: none;">' +
+            '            <ul id="' + listId + '-pages" class="pagination clickable">' +
+            '            </ul>' +
+            '            <div class="dropup pull-right">' +
+            '                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">' +
+            '                    <span id="' + listId + '-page-size">10</span>' +
+            '                    <span class="caret"></span>' +
+            '                </button>' +
+            '                <ul id="' + listId + '-page-size-dropdown" class="dropdown-menu" aria-labelledby="dropdownMenu1">' +
+            '                </ul>' +
+            '            </div>' +
+            '            <div class="clearfix"></div>' +
+            '        </div>' +
+            '    </div>' +
+            '</div>'
+        );
         return {
             clearKeywords: $('#'+ listId + '-clear-keywords'),
             keywords: $('#'+ listId + '-keywords'),

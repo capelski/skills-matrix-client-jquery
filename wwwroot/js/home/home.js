@@ -1,8 +1,8 @@
 (function(js, ajax, paginatedList) {
 
     var htmlNodes = {
-        employeesList:  paginatedList.getHtmlNodes('employees'),
-        skillsList:  paginatedList.getHtmlNodes('skills')
+        employeesList:  paginatedList.getHtmlNodes('home-employees-list'),
+        skillsList:  paginatedList.getHtmlNodes('home-skills-list')
     };
 
     var state = {
