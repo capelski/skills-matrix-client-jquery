@@ -53,7 +53,7 @@
         })
         .then(function (employee) {
             if (employee) {
-                document.location.href = '/employees/';
+                Navigation.navigate('employees-list-section')
             }
             else {
                 basicModal.close();
@@ -78,7 +78,10 @@
         ajax.save('/api/employee', state.employee)
         .then(function (employee) {
             if (employee) {
-                document.location.href = '/employees/details/' + employee.Id;
+                Navigation.navigate('employee-details-section', {
+                    employeeId: employee.Id,
+                    readOnly: true
+                });
             }
             else {
                 state.loading = false;

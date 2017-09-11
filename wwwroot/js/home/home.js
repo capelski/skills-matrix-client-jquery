@@ -14,15 +14,19 @@
         // State would be retrieved from the store in Redux
         paginatedList.render(htmlNodes.employeesList, state.employees, {
             elementDrawer: function (employee) {
-                return '<li class="list-group-item"><a class="reset" href="/employees/details?id=' + employee.Id + '">' + employee.Name +
-                '<span class="badge floating">' + employee.Skills.length + '</span></a></li>';
+                return '<li class="list-group-item"><a class="reset" href="#" ' +
+                'onclick="Navigation.navigate(\'employee-details-section\', {employeeId: ' + employee.Id +
+                ', readOnly: true})">' +
+                employee.Name + '<span class="badge floating">' + employee.Skills.length + '</span></a></li>';
             },
             noResultsHtml: '<i>No employees found</i>'
         });
         paginatedList.render(htmlNodes.skillsList, state.skills, {
             elementDrawer: function (skill) {
-                return '<li class="list-group-item"><a class="reset" href="/skills/details?id=' + skill.Id + '">' + skill.Name +
-                '<span class="badge floating">' + skill.Employees.length + '</span></a></li>';
+                return '<li class="list-group-item"><a class="reset" href="#" ' +
+                'onclick="Navigation.navigate(\'skill-details-section\', {skillId: ' + skill.Id +
+                ', readOnly: true})">' +
+                skill.Name + '<span class="badge floating">' + skill.Employees.length + '</span></a></li>';
             },
             noResultsHtml: '<i>No skills found</i>'
         });

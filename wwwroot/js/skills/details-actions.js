@@ -53,7 +53,7 @@
         })
         .then(function (skill) {
             if (skill) {
-                document.location.href = '/skills/';
+                Navigation.navigate('skills-list-section');
             }
             else {
                 basicModal.close();
@@ -78,7 +78,10 @@
         ajax.save('/api/skill', state.skill)
         .then(function (skill) {
             if (skill) {
-                document.location.href = '/skills/details/' + skill.Id;
+                Navigation.navigate('skill-details-section', {
+                    skillId: skill.Id,
+                    readOnly: true
+                });
             }
             else {
                 state.loading = false;
@@ -117,7 +120,7 @@
             });
         }
 
-        js.stallPromise(skillPromise, 1500)
+        return js.stallPromise(skillPromise, 1500)
         .then(function(skill) {
             state.loading = false;
             if (skill) {

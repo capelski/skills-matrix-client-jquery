@@ -63,7 +63,7 @@
                             <h2>Most skilled employees</h2>  
                         </div>
                         <div class="col-xs-3 m-bottom-10 text-right">
-                            <a href="/employees">View all</a>  
+                            <a href="#" onclick="Navigation.navigate('employees-list-section')">View all</a>  
                         </div>
                     </div>
                     <div id="home-employees-list"></div>
@@ -74,7 +74,7 @@
                             <h2>Rearest skills</h2>
                         </div>
                         <div class="col-xs-3 m-bottom-10 text-right">
-                            <a href="/skills">View all</a>  
+                            <a href="#" onclick="Navigation.navigate('skills-list-section')">View all</a>  
                         </div>
                     </div>
                     <div id="home-skills-list"></div>
@@ -89,7 +89,10 @@
                         <h2>Employees</h2>
                     </div>
                     <div class="col-xs-6 text-right m-bottom-10">
-                        TODO Link to create an employee (e.g. /employees/edit/)
+                        <a class="btn btn-primary" href="#"
+                        onclick="Navigation.navigate('employee-details-section', {employeeId: 0, readOnly: false})">
+                            Create
+                        </a>
                     </div>
                 </div>
             </div>
@@ -130,7 +133,7 @@
 
                         <!-- Read actions -->
                         <a id="employee-edit-button" class="btn btn-primary" href="#">Edit</a>
-                        <button id="employee-delete-button" type="button" class="btn btn-danger" >Delete</button>
+                        <button id="employee-delete-button" type="button" class="btn btn-danger">Delete</button>
 
                         <!-- Edit actions -->
                         <button id="employee-save-button" type="button" class="btn btn-primary">Save</button>
@@ -138,8 +141,9 @@
                     </form>
                     
                     <hr />
-                    @Html.ActionLink("Employees list", "index", "employees", null, new { @class = "btn btn-default" })
-
+                    <a href="#" onclick="Navigation.navigate('employees-list-section')" class="btn btn-default">
+                        Employees list
+                    </a>
                 </div>
 
             </div>
@@ -152,7 +156,10 @@
                         <h2>Skills</h2>
                     </div>
                     <div class="col-xs-6 text-right m-bottom-10">
-                        TODO Link to create an employee (e.g. /skills/edit/)
+                        <a class="btn btn-primary" href="#"
+                        onclick="Navigation.navigate('skill-details-section', {skillId: 0, readOnly: false})">
+                            Create
+                        </a>
                     </div>
                 </div>
             </div>
@@ -193,7 +200,7 @@
 
                         <!-- Read actions -->
                         <a id="skill-edit-button" class="btn btn-primary" href="#">Edit</a>
-                        <button id="skill-delete-button" type="button" class="btn btn-danger" >Delete</button>
+                        <button id="skill-delete-button" type="button" class="btn btn-danger">Delete</button>
 
                         <!-- Edit actions -->
                         <button id="skill-save-button" type="button" class="btn btn-primary">Save</button>
@@ -201,8 +208,9 @@
                     </form>
                     
                     <hr />
-                    @Html.ActionLink("Skills list", "index", "skills", null, new { @class = "btn btn-default" })
-
+                    <a href="#" onclick="Navigation.navigate('skills-list-section')" class="btn btn-default">
+                        Skills list
+                    </a>
                 </div>
 
             </div>

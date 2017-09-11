@@ -10,7 +10,9 @@
         // State would be retrieved from the store in Redux
         paginatedList.render(htmlNodes, state, {
             elementDrawer: function (skill) {
-                return '<li class="list-group-item"><a class="reset" href="/skills/details?id=' + skill.Id + '">' + skill.Name + '</a></li>';
+                return '<li class="list-group-item"><a class="reset" href="#" ' +
+                'onclick="Navigation.navigate(\'skill-details-section\', {skillId: ' + skill.Id +
+                ', readOnly: true})">' + skill.Name + '</a></li>';
             },
             noResultsHtml: '<i>No skills found</i>'
         });

@@ -38,7 +38,8 @@
     render.foundSkills = function () {
         paginatedList.render(htmlNodes.addSkillsList, state.addSkillsList, {
             elementDrawer: function (skill) {
-                return '<li class="list-group-item"><span class="add-skill" data-skill-id="' + skill.Id + '"><i class="fa fa-plus text-success"></i> '
+                return '<li class="list-group-item"><span class="add-skill" data-skill-id="' + skill.Id +
+                '"><i class="fa fa-plus text-success"></i> '
                 + skill.Name + '</span></li>';
             },
             noResultsHtml: '<i>No skills found</i>'
@@ -53,9 +54,12 @@
     render.employeeSkills = function() {
         paginatedList.render(htmlNodes.skillsList, state.skillsList, {
             elementDrawer: function (skill) {
-                var html = '<li class="list-group-item"><a class="reset" href="/skills/details?id=' + skill.Id + '">' + skill.Name + '</a></li>';
+                var html = '<li class="list-group-item"><a class="reset" href="#"' +
+                'onclick="Navigation.navigate(\'skill-details-section\', {skillId: ' + skill.Id +
+                ', readOnly: true})">' + skill.Name + '</a></li>';
                 if (!state.readOnly) {
-                    html = '<li class="list-group-item"><span class="remove-skill" data-skill-id="' + skill.Id + '"><i class="fa fa-times text-danger"></i> '
+                    html = '<li class="list-group-item"><span class="remove-skill" data-skill-id="' + skill.Id +
+                    '"><i class="fa fa-times text-danger"></i> '
                     + skill.Name + '</span></li>';
                 }
                 return html;
@@ -67,18 +71,19 @@
     render.readOnly = function() {
         htmlNodes.addSkillsList.wrapper.hide();
         htmlNodes.editButton.hide();
-        htmlNodes.editButton.attr('href', '#');
+        htmlNodes.editButton.removeAttr('onclick');
         htmlNodes.deleteButton.hide();
         htmlNodes.pageTitle.text('Employee not found');            
         htmlNodes.saveButton.hide();
         htmlNodes.cancelButton.hide();
-        htmlNodes.cancelButton.attr('href', '#');
+        htmlNodes.cancelButton.removeAttr('onclick');
 
         if (state.readOnly) {
             htmlNodes.elementName.attr('disabled', 'disabled');
             if (state.employee.Id > 0) {
                 htmlNodes.pageTitle.text(state.employee.Name);
-                htmlNodes.editButton.attr('href', '/employees/edit?id=' + state.employee.Id);
+                htmlNodes.editButton.attr('onclick', 'Navigation.navigate(\'employee-details-section\', ' +
+                '{employeeId: ' + state.employee.Id + ', readOnly: false})');
                 htmlNodes.editButton.show();
                 htmlNodes.deleteButton.show();
             }
@@ -90,11 +95,12 @@
                 htmlNodes.addSkillsList.wrapper.show();
                 htmlNodes.saveButton.show();
                 htmlNodes.cancelButton.show();
-                htmlNodes.cancelButton.attr('href', '/employees/');
+                htmlNodes.cancelButton.attr('onclick', 'Navigation.navigate(\'employees-list-section\')');
 
                 if (state.employee.Id > 0) {
                     htmlNodes.pageTitle.text(state.employee.Name);
-                    htmlNodes.cancelButton.attr('href', '/employees/details?id=' + state.employee.Id);
+                    htmlNodes.cancelButton.attr('onclick', 'Navigation.navigate(\'employee-details-section\', ' +
+                    '{employeeId: ' + state.employee.Id + ', readOnly: true})');
                 }
             }
         }

@@ -10,7 +10,9 @@
         // State would be retrieved from the store in Redux
         paginatedList.render(htmlNodes, state, {
             elementDrawer: function (employee) {
-                return '<li class="list-group-item"><a class="reset" href="/employees/details?id=' + employee.Id + '">' + employee.Name + '</a></li>';
+                return '<li class="list-group-item"><a class="reset" href="#" '+
+                'onclick="Navigation.navigate(\'employee-details-section\', {employeeId: ' + employee.Id +
+                ', readOnly: true})">' + employee.Name + '</a></li>';
             },
             noResultsHtml: '<i>No employees found</i>'
         });
