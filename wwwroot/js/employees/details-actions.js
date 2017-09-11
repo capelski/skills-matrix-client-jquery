@@ -1,4 +1,17 @@
-(function(js, navigation, ajax, paginatedList, htmlNodes, state, render) {
+(function(js, navigation, ajax, paginatedList, htmlNodes, render) {
+
+    var state = {
+        skillsList: paginatedList.getState(),
+        addSkillsList: paginatedList.getState(),
+        employee: {
+            Id: -1,
+            Name: '',
+            Skills: []
+        },
+        loading: true
+    };
+    state.addSkillsList.hasSearcher = true;
+    state.addSkillsList.searcherPlaceholder = "Add skills...";
 
     function addSkill (state, event) {
         var skillId = getSkillId(event);
@@ -9,15 +22,15 @@
         state.addSkillsList.keywords = '';
         if (skill) {
             state.employee.Skills.push(skill);
-            render.employeeSkills();
+            render.employeeSkills(state);
         }
-        render.foundSkills();
+        render.foundSkills(state);
     }
 
     function employeeName (state, event) {
         var name = event.target.value;
         state.employee.Name = name;
-        render.employeeName();
+        render.employeeName(state);
     }
 
     function getSkillId(event) {
@@ -40,7 +53,7 @@
         .then(function(paginatedList) {
             state.addSkillsList.loadPhase = 'loaded';
             state.addSkillsList.results = js.arrayDifference(paginatedList.Items, state.employee.Skills, 'Id');
-            render.foundSkills();
+            render.foundSkills(state);
         });
     }
     
@@ -48,7 +61,7 @@
         js.actionModal('<div>Are you sure you want to delete ' + state.employee.Name + '?</div>', 'Delete')
         .then(function() {
             state.loading = true;
-            render();
+            render(state);
             return ajax.remove('/api/employee?id=' + state.employee.Id);
         })
         .then(function (employee) {
@@ -58,7 +71,7 @@
             else {
                 basicModal.close();
                 state.loading = false;
-                render();
+                render(state);
             }
         });
     }
@@ -69,12 +82,12 @@
             return skill.Id !== skillId;
         });
         state.skillsList.results = state.employee.Skills;
-        render.employeeSkills();
+        render.employeeSkills(state);
     }
 
     function save(state, event) {
         state.loading = true;
-        render();
+        render(state);
         ajax.save('/api/employee', state.employee)
         .then(function (employee) {
             if (employee) {
@@ -85,7 +98,7 @@
             }
             else {
                 state.loading = false;
-                render();
+                render(state);
             }
         });
     }
@@ -105,13 +118,18 @@
     htmlNodes.skillsList.list.on('click', '.remove-skill', function(event) {
         removeSkill(state, event);
     });
-    paginatedList.attachEvents(htmlNodes.addSkillsList, state.addSkillsList, render.foundSkills, getSkills);
+    paginatedList.attachEvents(htmlNodes.addSkillsList, state.addSkillsList,
+        () => render.foundSkills(state), getSkills);
 
     navigation.register('employee-details-section', function(navigationData) {
+        state.employee = {
+            Id: navigationData.employeeId,
+            Name: '',
+            Skills: []
+        };
+        state.readOnly = navigationData.readOnly,
         state.loading = true;
-        state.employee.Id = navigationData.employeeId;
-        state.readOnly = navigationData.readOnly;
-        render();
+        render(state);
         
         var employeePromise = Promise.resolve(state.employee);
         if (state.employee.Id != 0) {
@@ -131,7 +149,7 @@
                 state.employee.Id = -1;
                 state.readOnly = true;
             }
-            render();
+            render(state);
         });
     });
 
@@ -140,5 +158,4 @@
     window.Ajax,
     window.PaginatedList,
     window.application.employeeDetails.htmlNodes,
-    window.application.employeeDetails.state,
     window.application.employeeDetails.render);

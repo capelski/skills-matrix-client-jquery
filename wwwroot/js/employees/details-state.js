@@ -13,29 +13,15 @@
         viewWrapper : $('#employee-view-wrapper')
     };
 
-    var state = {
-        skillsList: paginatedList.getState(),
-        addSkillsList: paginatedList.getState(),
-        employee: {
-            Id: -1,
-            Name: '',
-            Skills: []
-        },
-        loading: true
-    };
-    state.addSkillsList.hasSearcher = true;
-    state.addSkillsList.searcherPlaceholder = "Add skills...";
-
-    function render() {
-        // State would be retrieved from the store in Redux        
-        render.readOnly();
-        render.employeeName();
-        render.employeeSkills();
-        render.foundSkills();
-        render.viewWrapper();
+    function render(state) {
+        render.readOnly(state);
+        render.employeeName(state);
+        render.employeeSkills(state);
+        render.foundSkills(state);
+        render.viewWrapper(state);
     }
 
-    render.foundSkills = function () {
+    render.foundSkills = function (state) {
         paginatedList.render(htmlNodes.addSkillsList, state.addSkillsList, {
             elementDrawer: function (skill) {
                 return '<li class="list-group-item"><span class="add-skill" data-skill-id="' + skill.Id +
@@ -46,12 +32,12 @@
         });
     };
 
-    render.employeeName = function() {
+    render.employeeName = function(state) {
         htmlNodes.pageTitle.html(state.employee.Name);
         htmlNodes.elementName.val(state.employee.Name);
     };
 
-    render.employeeSkills = function() {
+    render.employeeSkills = function(state) {
         paginatedList.render(htmlNodes.skillsList, state.skillsList, {
             elementDrawer: function (skill) {
                 var html = '<li class="list-group-item"><a class="reset" href="#"' +
@@ -68,7 +54,7 @@
         });
     };
 
-    render.readOnly = function() {
+    render.readOnly = function(state) {
         htmlNodes.addSkillsList.wrapper.hide();
         htmlNodes.editButton.hide();
         htmlNodes.editButton.removeAttr('onclick');
@@ -106,7 +92,7 @@
         }
     };
 
-    render.viewWrapper = function() {
+    render.viewWrapper = function(state) {
         if (state.loading) {
             htmlNodes.viewWrapper.css({
                 visibility: 'hidden'
@@ -124,7 +110,6 @@
     window.application = window.application || {};
     window.application.employeeDetails = window.application.employeeDetails || {};
     window.application.employeeDetails.htmlNodes = htmlNodes;
-    window.application.employeeDetails.state = state;
     window.application.employeeDetails.render = render;
 
 })(window.PaginatedList);

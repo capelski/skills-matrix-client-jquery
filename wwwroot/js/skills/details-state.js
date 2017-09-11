@@ -13,29 +13,15 @@
         viewWrapper : $('#skill-view-wrapper')
     };
 
-    var state = {
-        employeesList: paginatedList.getState(),
-        addEmployeesList: paginatedList.getState(),
-        skill: {
-            Id: -1,
-            Name: '',
-            Employees: []
-        },
-        loading: true
-    };
-    state.addEmployeesList.hasSearcher = true;
-    state.addEmployeesList.searcherPlaceholder = "Add employees...";
-
-    function render() {
-        // State would be retrieved from the store in Redux        
-        render.readOnly();
-        render.skillName();
-        render.skillEmployees();
-        render.foundEmployees();
-        render.viewWrapper();
+    function render(state) {
+        render.readOnly(state);
+        render.skillName(state);
+        render.skillEmployees(state);
+        render.foundEmployees(state);
+        render.viewWrapper(state);
     }
 
-    render.foundEmployees = function () {
+    render.foundEmployees = function (state) {
         paginatedList.render(htmlNodes.addEmployeesList, state.addEmployeesList, {
             elementDrawer: function (employee) {
                 return '<li class="list-group-item"><span class="add-employee" data-employee-id="' +
@@ -46,12 +32,12 @@
         });
     };
 
-    render.skillName = function() {
+    render.skillName = function(state) {
         htmlNodes.pageTitle.html(state.skill.Name);
         htmlNodes.elementName.val(state.skill.Name);
     };
 
-    render.skillEmployees = function() {
+    render.skillEmployees = function(state) {
         paginatedList.render(htmlNodes.employeesList, state.employeesList, {
             elementDrawer: function (employee) {
                 var html = '<li class="list-group-item"><a class="reset" href="#" ' +
@@ -68,7 +54,7 @@
         });
     };
 
-    render.readOnly = function() {
+    render.readOnly = function(state) {
         htmlNodes.addEmployeesList.wrapper.hide();
         htmlNodes.editButton.hide();
         htmlNodes.editButton.removeAttr('onclick');
@@ -95,7 +81,7 @@
                 htmlNodes.addEmployeesList.wrapper.show();
                 htmlNodes.saveButton.show();
                 htmlNodes.cancelButton.show();
-                htmlNodes.cancelButton.attr('onclick', 'Navigation.navigate(\'skill-list-section\')');
+                htmlNodes.cancelButton.attr('onclick', 'Navigation.navigate(\'skills-list-section\')');
 
                 if (state.skill.Id > 0) {
                     htmlNodes.pageTitle.text(state.skill.Name);
@@ -106,7 +92,7 @@
         }
     };
 
-    render.viewWrapper = function() {
+    render.viewWrapper = function(state) {
         if (state.loading) {
             htmlNodes.viewWrapper.css({
                 visibility: 'hidden'
@@ -124,7 +110,6 @@
     window.application = window.application || {};
     window.application.skillDetails = window.application.skillDetails || {};
     window.application.skillDetails.htmlNodes = htmlNodes;
-    window.application.skillDetails.state = state;
     window.application.skillDetails.render = render;
 
 })(window.PaginatedList);
