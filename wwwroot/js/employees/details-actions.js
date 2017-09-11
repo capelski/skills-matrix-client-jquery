@@ -65,11 +65,11 @@
             return ajax.remove('/api/employee?id=' + state.employee.Id);
         })
         .then(function (employee) {
+            basicModal.close();
             if (employee) {
-                Navigation.navigate('employees-list-section')
+                Navigation.navigate('employees-list-section');
             }
             else {
-                basicModal.close();
                 state.loading = false;
                 render(state);
             }

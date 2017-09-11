@@ -65,11 +65,11 @@
             return ajax.remove('/api/skill?id=' + state.skill.Id);
         })
         .then(function (skill) {
+            basicModal.close();
             if (skill) {
                 Navigation.navigate('skills-list-section');
             }
             else {
-                basicModal.close();
                 state.loading = false;
                 render(state);
             }
