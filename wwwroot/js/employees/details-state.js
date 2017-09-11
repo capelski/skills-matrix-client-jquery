@@ -1,11 +1,11 @@
 (function(paginatedList) {
 
     var htmlNodes = {
-        addSkillsList: paginatedList.getHtmlNodes('add-skills'),
+        addSkillsList: paginatedList.getHtmlNodes('employee-details-add-skills'),
         loader : $('#employee-loader'),
         pageTitle : $('#employee-page-title'),
         elementName : $('#employee-model-name'),
-        skillsList : paginatedList.getHtmlNodes('skills'),
+        skillsList : paginatedList.getHtmlNodes('employee-details-skills'),
         editButton : $('#employee-edit-button'),
         deleteButton : $('#employee-delete-button'),
         saveButton : $('#employee-save-button'),

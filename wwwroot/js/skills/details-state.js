@@ -1,11 +1,11 @@
 (function(paginatedList) {
 
     var htmlNodes = {
-        addEmployeesList: paginatedList.getHtmlNodes('add-employees'),
+        addEmployeesList: paginatedList.getHtmlNodes('skill-details-add-employees'),
         loader : $('#skill-loader'),
         pageTitle : $('#skill-page-title'),
         elementName : $('#skill-model-name'),
-        employeesList : paginatedList.getHtmlNodes('employees'),
+        employeesList : paginatedList.getHtmlNodes('skill-details-employees'),
         editButton : $('#skill-edit-button'),
         deleteButton : $('#skill-delete-button'),
         saveButton : $('#skill-save-button'),
@@ -54,9 +54,9 @@
     render.skillEmployees = function() {
         paginatedList.render(htmlNodes.employeesList, state.employeesList, {
             elementDrawer: function (employee) {
-                var html = '<li class="list-group-item"><a class="reset" href="#"' +
+                var html = '<li class="list-group-item"><a class="reset" href="#" ' +
                 'onclick="Navigation.navigate(\'employee-details-section\', {employeeId:' + employee.Id +
-                ', readOnly: true})>' + employee.Name + '</a></li>';
+                ', readOnly: true})">' + employee.Name + '</a></li>';
                 if (!state.readOnly) {
                     html = '<li class="list-group-item"><span class="remove-employee" data-employee-id="' +
                     employee.Id + '"><i class="fa fa-times text-danger"></i> '
