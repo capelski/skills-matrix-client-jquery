@@ -1,0 +1,5 @@
+- Split repo in client side and server side
+	- Server side: Include generic index.html where to place the static app
+- Add navigation page change generic loader
+- Refactor page loads - Most of the times the reload is not necessary
+- Replicate for redux-state
