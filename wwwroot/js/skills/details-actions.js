@@ -106,6 +106,8 @@
 
     navigation.register('skill-details-section', function(navigationData) {
         state.loading = true;
+        state.skill.Id = navigationData.skillId;
+        state.readOnly = navigationData.readOnly;
         render();
         
         var skillPromise = Promise.resolve(state.skill);

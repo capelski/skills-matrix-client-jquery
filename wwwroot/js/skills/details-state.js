@@ -3,8 +3,6 @@
     var htmlNodes = {
         addEmployeesList: paginatedList.getHtmlNodes('add-employees'),
         loader : $('#skill-loader'),
-        elementId : $('#skill-model-id'),
-        readOnly : $('#skill-read-only'),
         pageTitle : $('#skill-page-title'),
         elementName : $('#skill-model-name'),
         employeesList : paginatedList.getHtmlNodes('employees'),
@@ -19,12 +17,11 @@
         employeesList: paginatedList.getState(),
         addEmployeesList: paginatedList.getState(),
         skill: {
-            Id: parseInt(htmlNodes.elementId.val()),
+            Id: -1,
             Name: '',
             Employees: []
         },
-        loading: true,
-        readOnly: htmlNodes.readOnly.val() == 'true'
+        loading: true
     };
     state.addEmployeesList.hasSearcher = true;
     state.addEmployeesList.searcherPlaceholder = "Add employees...";

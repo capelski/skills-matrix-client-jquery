@@ -106,6 +106,8 @@
 
     navigation.register('employee-details-section', function(navigationData) {
         state.loading = true;
+        state.employee.Id = navigationData.employeeId;
+        state.readOnly = navigationData.readOnly;
         render();
         
         var employeePromise = Promise.resolve(state.employee);
