@@ -38,7 +38,7 @@
         
         <!-- SECTIONS -->
 
-        <div id="home-section">
+        <div id="home-section" class="navigation-section">
             <div class="row">
                 <div class="col-xs-12">
                     <div class="page-header">
@@ -82,7 +82,7 @@
             </div>
         </div>
 
-        <div id="employees-list-section">
+        <div id="employees-list-section" class="navigation-section">
             <div class="page-header">
                 <div class="row align-bottom">
                     <div class="col-xs-6">
@@ -105,7 +105,7 @@
             <div id="employees-list-wrapper"></div>
         </div>
 
-        <div id="employee-details-section">
+        <div id="employee-details-section" class="navigation-section">
             <div class="dynamic-content">
 
                 <div id="employee-loader" class="loader"></div>
@@ -147,7 +147,7 @@
             </div>
         </div>
 
-        <div id="skills-list-section">
+        <div id="skills-list-section" class="navigation-section">
             <div class="page-header">
                 <div class="row align-bottom">
                     <div class="col-xs-6">
@@ -170,7 +170,7 @@
             <div id="skills-list-wrapper"></div>
         </div>
 
-        <div id="skill-details-section">
+        <div id="skill-details-section" class="navigation-section">
             <div class="dynamic-content">
 
                 <div id="skill-loader" class="loader"></div>
@@ -226,6 +226,7 @@
     <script type="text/javascript" src="/plugins/toastr-2.1.3/toastr.min.js"></script>
     <script type="text/javascript" src="/js/utils/loader.js"></script>
     <script type="text/javascript" src="/js/utils/js-commons.js"></script>
+    <script type="text/javascript" src="/js/utils/navigation.js"></script>
     <script type="text/javascript" src="/js/utils/ajax.js"></script>
     <script type="text/javascript" src="/js/utils/paginated-list.js"></script>
 
@@ -241,5 +242,10 @@
     <script src="/js/skills/list.js"></script>
     <script src="/js/skills/details-state.js"></script>
     <script src="/js/skills/details-actions.js"></script>
+
+    <!-- Ready. Every state event should be started from here except from the user triggered ones -->
+    <script type="text/javascript">
+        window.Navigation.navigate('home-section');
+    </script>
 </body>
 </html>

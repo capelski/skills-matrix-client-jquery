@@ -1,5 +1,5 @@
 (function() {
-    var Ajax = {
+    var ajax = {
         get: function(url, parameters, defaultValue) {
             return new Promise(function(resolve, reject) {
                 var result = defaultValue;
@@ -68,5 +68,5 @@
             });
         }
     };
-    window.Ajax = Ajax;
+    window.Ajax = ajax;
 })();

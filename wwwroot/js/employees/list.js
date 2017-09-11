@@ -1,4 +1,4 @@
-(function(js, ajax, paginatedList) {
+(function(js, navigation, ajax, paginatedList) {
 
     var htmlNodes = paginatedList.getHtmlNodes('employees-list-wrapper');
 
@@ -30,17 +30,12 @@
         });
     }
 
-    // Actions
-    function initialize(state, event) {
+    paginatedList.attachEvents(htmlNodes, state, render, getEmployees);
+
+    navigation.register('employees-list-section', function(navigationData) {
         state.loadPhase = 'loading';
         render();
         getEmployees(state);
-    }
-
-    paginatedList.attachEvents(htmlNodes, state, render, getEmployees);
-
-    $().ready(function(event) {
-        initialize(state);
     });
 
-})(window.JsCommons, window.Ajax, window.PaginatedList);
+})(window.JsCommons, window.Navigation, window.Ajax, window.PaginatedList);

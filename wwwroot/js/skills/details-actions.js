@@ -1,4 +1,4 @@
-(function(js, ajax, paginatedList, htmlNodes, state, render) {
+(function(js, navigation, ajax, paginatedList, htmlNodes, state, render) {
 
     function addEmployee (state, event) {
         var employeeId = getEmployeeId(event);
@@ -41,32 +41,6 @@
             state.addEmployeesList.loadPhase = 'loaded';
             state.addEmployeesList.results = js.arrayDifference(paginatedList.Items, state.skill.Employees, 'Id');
             render.foundEmployees();
-        });
-    }
-
-    function initialize(state) {
-        state.loading = true;
-        render();
-        
-        var skillPromise = Promise.resolve(state.skill);
-        if (state.skill.Id != 0) {
-            skillPromise = ajax.get('/api/skill/getById', {
-                id : state.skill.Id
-            });
-        }
-
-        js.stallPromise(skillPromise, 1500)
-        .then(function(skill) {
-            state.loading = false;
-            if (skill) {
-                state.skill = skill;
-                state.employeesList.results = state.skill.Employees;
-            }
-            else {
-                state.skill.Id = -1;
-                state.readOnly = true;
-            }
-            render();
         });
     }
     
@@ -130,9 +104,36 @@
     });
     paginatedList.attachEvents(htmlNodes.addEmployeesList, state.addEmployeesList, render.foundEmployees, getEmployees);
 
-    $().ready(function(event) {
-        initialize(state);
+    navigation.register('skill-details-section', function(navigationData) {
+        state.loading = true;
+        render();
+        
+        var skillPromise = Promise.resolve(state.skill);
+        if (state.skill.Id != 0) {
+            skillPromise = ajax.get('/api/skill/getById', {
+                id : state.skill.Id
+            });
+        }
+
+        js.stallPromise(skillPromise, 1500)
+        .then(function(skill) {
+            state.loading = false;
+            if (skill) {
+                state.skill = skill;
+                state.employeesList.results = state.skill.Employees;
+            }
+            else {
+                state.skill.Id = -1;
+                state.readOnly = true;
+            }
+            render();
+        });
     });
 
-})(window.JsCommons, window.Ajax, window.PaginatedList, window.application.skillDetails.htmlNodes,
-    window.application.skillDetails.state, window.application.skillDetails.render);
+})(window.JsCommons,
+    window.Navigation,
+    window.Ajax,
+    window.PaginatedList,
+    window.application.skillDetails.htmlNodes,
+    window.application.skillDetails.state,
+    window.application.skillDetails.render);

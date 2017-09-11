@@ -1,4 +1,4 @@
-(function(js, ajax, paginatedList) {
+(function(js, navigation, ajax, paginatedList) {
 
     var htmlNodes = {
         employeesList:  paginatedList.getHtmlNodes('home-employees-list'),
@@ -28,8 +28,7 @@
         });
     }
 
-    //Actions
-    function initialize(state) {
+    navigation.register('home-section', function(navigationData) {
         state.employees.loadPhase = 'loading';
         state.skills.loadPhase = 'loading';
         render();
@@ -47,10 +46,6 @@
             state.skills.results = skills;
             render();
         });
-    }
-
-    $().ready(function(event) {
-        initialize(state);
     });
 
-})(window.JsCommons, window.Ajax, window.PaginatedList);
+})(window.JsCommons, window.Navigation, window.Ajax, window.PaginatedList);

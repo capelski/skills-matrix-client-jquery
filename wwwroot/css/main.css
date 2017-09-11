@@ -3,6 +3,14 @@
     padding-bottom: 20px;
 }
 
+.navigation-section {
+    display: none;
+}
+
+.navigation-section.visible {
+    display: block;
+}
+
 .row.align-bottom {
     font-size: 0;
 }

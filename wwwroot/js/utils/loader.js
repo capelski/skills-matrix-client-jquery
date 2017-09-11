@@ -1,5 +1,5 @@
 (function() {
-    var Loader = {
+    var loader = {
         create: function() {
             $('.loader').html(
                 '<div class="sk-chasing-dots">' +
@@ -9,5 +9,5 @@
             );
         }
     };
-    window.Loader = Loader;
+    window.Loader = loader;
 })();
