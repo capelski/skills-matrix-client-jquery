@@ -3,6 +3,8 @@
         get: function(url, parameters, defaultValue) {
             return new Promise(function(resolve, reject) {
                 var result = defaultValue;
+                parameters = parameters || {};
+                parameters.namespace = 'skills-matrix-node';
                 url += '?';
                 for (var key in parameters) {
                     var parameter = parameters[key];
@@ -28,7 +30,7 @@
                 var result = null;
                 $.ajax({
                     type: 'DELETE',
-                    url: url
+                    url: url + '?namespace=skills-matrix-node'
                 })
                 .then(function(data) {
                     result = data;
@@ -46,7 +48,7 @@
                 var result = null;
                 var request = {
                     type: 'POST',
-                    url: url,
+                    url: url + '?namespace=skills-matrix-node',
                     contentType: 'application/json',
                     data: JSON.stringify(entitity)
                 };
