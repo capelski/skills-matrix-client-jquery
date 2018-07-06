@@ -30,7 +30,7 @@
                 var result = null;
                 $.ajax({
                     type: 'DELETE',
-                    url: url + '?namespace=skills-matrix-api-node'
+                    url: url + '&namespace=skills-matrix-api-node'
                 })
                 .then(function(data) {
                     result = data;
