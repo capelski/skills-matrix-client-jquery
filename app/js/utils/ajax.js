@@ -4,7 +4,7 @@
             return new Promise(function(resolve, reject) {
                 var result = defaultValue;
                 parameters = parameters || {};
-                parameters.namespace = 'skills-matrix-api-node';
+                parameters.$modena = 'skills-matrix-api-node';
                 url += '?';
                 for (var key in parameters) {
                     var parameter = parameters[key];
@@ -30,7 +30,7 @@
                 var result = null;
                 $.ajax({
                     type: 'DELETE',
-                    url: url + '&namespace=skills-matrix-api-node'
+                    url: url + '&$modena=skills-matrix-api-node'
                 })
                 .then(function(data) {
                     result = data;
@@ -48,7 +48,7 @@
                 var result = null;
                 var request = {
                     type: 'POST',
-                    url: url + '?namespace=skills-matrix-api-node',
+                    url: url + '?$modena=skills-matrix-api-node',
                     contentType: 'application/json',
                     data: JSON.stringify(entitity)
                 };
