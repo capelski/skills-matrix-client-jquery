@@ -1,0 +1,14 @@
+{
+    "name": "skills-matrix-client-jquery",
+    "version": "1.0.0",
+    "description": "Skills matrix application client built using jQuery",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js"
+    },
+    "author": "Carles Capellas <capellas.carles@gmail.com>",
+    "license": "MIT",
+    "dependencies": {
+        "express": "^4.17.1"
+    }
+}
